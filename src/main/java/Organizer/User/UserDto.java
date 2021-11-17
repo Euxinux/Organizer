@@ -1,20 +1,19 @@
 package Organizer.User;
 
 import lombok.*;
+import org.springframework.validation.annotation.Validated;
+
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
 @Entity
 @Table(name = "user")
 @Getter
 @Setter
 @NoArgsConstructor
+@RequiredArgsConstructor
+@ToString
 public class UserDto{
-
-    public UserDto(@NonNull String userLogin, @NonNull String userPassword, @NonNull String userEmail) {
-        this.userLogin = userLogin;
-        this.userPassword = userPassword;
-        this.userEmail = userEmail;
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,13 +21,17 @@ public class UserDto{
     private int userId;
 
     @NonNull
-   // @Column(name = "user_login")
+    @NotBlank(message = "Login can not be blank.")
+    @Size(min = 6, max = 20, message = "User login must be between {min} and {max} chars.")
     private String userLogin;
 
     @NonNull
+    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{8,64}$",
+             message = "Password is incorrect")
     private String userPassword;
 
     @NonNull
+    @Email(message = "Email should be properly formatted.")
     private String userEmail;
 
     private boolean userEnabled;

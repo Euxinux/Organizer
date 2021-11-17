@@ -1,9 +1,11 @@
 package Organizer.User;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+
 import java.security.SecureRandom;
 
-@Component
+@Service
 public class UserPassword{
 
     private BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(10, new SecureRandom());

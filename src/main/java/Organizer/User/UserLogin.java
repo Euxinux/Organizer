@@ -1,36 +1,34 @@
 package Organizer.User;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import java.util.List;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import java.util.Optional;
 
-@Component
+@Service
 public class UserLogin{
     @Autowired
     UserRepository userRepository;
     @Autowired
-    ObjectMapper objectMapper;
-    @Autowired
     UserPassword userPassword;
 
-    public String loginUser(UserDto userDto) throws JsonProcessingException{
-        List<UserDto> byUserLoginOrEmail = userRepository.findUserByLoginOrEmail(userDto.getUserLogin());
-        if(byUserLoginOrEmail.isEmpty())
-            return "";
+    public ResponseEntity loginUser(UserDto userDto){
+        Optional<UserDto> byUserDtoLoginOrEmail = userRepository.findUserByLoginOrEmail(userDto.getUserLogin());
+        if(byUserDtoLoginOrEmail.isEmpty())
+            return new ResponseEntity("User doesn't exist", HttpStatus.NOT_FOUND);
         else{
-            String password1 = userDto.getUserPassword();
-            String password2 = byUserLoginOrEmail.get(0).getUserPassword();
-            boolean isEqual = userPassword.comparePassword(password1,password2);
-            if (isEqual) {
-                return objectMapper.writeValueAsString(byUserLoginOrEmail);
+            String passwordFromRequest = userDto.getUserPassword();
+            String passwordFromDB = byUserDtoLoginOrEmail.get().getUserPassword();
+
+            // compare password by BCrypt
+            boolean isEqual = userPassword.comparePassword(passwordFromRequest,passwordFromDB);
+            if (isEqual){
+                return new ResponseEntity("Login successful",HttpStatus.OK);
             }
             else{
-                    return "";
+                return new ResponseEntity("Login or password is incorrect",HttpStatus.UNAUTHORIZED);
                 }
         }
     }
-
-
 }
