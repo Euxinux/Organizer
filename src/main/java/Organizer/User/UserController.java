@@ -28,15 +28,15 @@ public class UserController{
         return userLogin.loginUser(userDto);
     }
 
-    @GetMapping("/confirm")
+    @PutMapping("/confirm")
     public ResponseEntity confirmEmail(@RequestParam String token){
             return userRegistration.confirmEmail(token);
     }
 
     @GetMapping("/test")
-    public ResponseEntity testMethod(@RequestBody @Valid UserDto userDto, Errors errors){
-        String password = userPassword.encodePassword(userDto.getUserPassword());
-        return new ResponseEntity(userDto.getUserPassword() + password,HttpStatus.OK);
+    public ResponseEntity testMethod(@RequestBody String password){
+        String password1 = userPassword.encodePassword(password);
+        return new ResponseEntity(password1,HttpStatus.OK);
     }
 
 

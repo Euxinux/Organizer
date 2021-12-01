@@ -1,5 +1,6 @@
 package Organizer.User;
 
+import Organizer.User.UserDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -11,6 +12,6 @@ public interface UserRepository extends JpaRepository<UserDto,Long> {
      Optional<UserDto> findByUserEmail(String userEmail);
      Optional<UserDto> findByUserId(int id);
 
-     @Query(value = "SELECT * FROM organizer.user WHERE user_login = ?1 OR user_email = ?1", nativeQuery = true)
+     @Query(value = "SELECT * FROM user WHERE user_login = ?1 OR user_email = ?1", nativeQuery = true)
      Optional<UserDto> findUserByLoginOrEmail(String loginOrEmail);
 }

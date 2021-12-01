@@ -1,5 +1,6 @@
 package Organizer.User;
 
+import lombok.NoArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
