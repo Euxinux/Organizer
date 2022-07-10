@@ -1,4 +1,4 @@
-__Networ Service by DanielBesztak __
+__Networ Service by DanielBesztak__
 
 REST application allows to register user, during registration application sent confirmation mail to our mailbox.
 Every data are validation during registration. Our date are encrypted to prived safty.
