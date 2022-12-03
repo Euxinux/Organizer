@@ -1,14 +1,16 @@
-__Networ Service by DanielBesztak__
+### Network Service by Daniel Besztak
 
-REST application allows to register user, during registration application sent confirmation mail to our mailbox.
-Every data are validation during registration. Our date are encrypted to prived safty.
-Information are storage at local database. Aplication was created in REST architecture.
-To my own test i used internal database H2. Many tests used mocked objects.
+REST application allows us to register users, during registration applications send confirmation mail to our mailbox. 
+Every data is validated during registration. Our data is encrypted to provide safety. 
+Information is stored in a local database. Application was created in REST architecture.
+To unit tests have been used the internal database H2 and frameworks JUnit and Mockito.
 
 
-Technology:
-*Build automation tool: Maven
-*Main language: JAVA
-*Frameworks: Spring, Hibernate,
-*Version control software: Git
-*Database MySQL, H2
+
+## Technology:
+- Build automation tool: Maven
+- Main language: JAVA
+- Frameworks: Spring, Hibernate,
+- Version control software: Git
+- Database MySQL, H2
+- Tests: JUnit, Mockito
